@@ -250,53 +250,53 @@ class MainPage extends StatelessWidget {
           const SizedBox(height: 10),
           Row(
             children: [
-              boxContainer(Icons.local_shipping, text: 'Жеткізу'),
+              // boxContainer(Icons.local_shipping, text: 'Жеткізу'),
               boxContainer(
                 Icons.food_bank_outlined,
                 text: 'Кафе',
                 onTap: () => Get.toNamed('/cafes', preventDuplicates: false),
               ),
-              boxContainer(Icons.hotel, text: 'Отель'),
-              boxContainer(Icons.production_quantity_limits_outlined,
-                  text: 'Азық-түлік')
+              // boxContainer(Icons.hotel, text: 'Отель'),
+              // boxContainer(Icons.production_quantity_limits_outlined,
+              //     text: 'Азық-түлік')
             ],
           ),
           const SizedBox(height: 20),
-          Container(
-            padding: const EdgeInsets.only(top: 15, left: 10),
-            width: double.maxFinite,
-            height: 200,
-            decoration: BoxDecoration(
-              color: Color.fromARGB(71, 238, 195, 66),
-              borderRadius: BorderRadius.circular(30),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Скидка 2000тг в Еде',
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                ),
-                const Text(
-                    'промокод EDA2000 на первый заказ из ресторана и доставка 0тг'),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: const [
-                    Icon(
-                      Icons.flutter_dash,
-                      size: 30,
-                    ),
-                    Icon(
-                      IconData(0xe25a, fontFamily: 'MaterialIcons'),
-                      size: 100,
-                      color: Colors.amber,
-                    ),
-                    SizedBox(width: 20)
-                  ],
-                )
-              ],
-            ),
-          )
+          // Container(
+          //   padding: const EdgeInsets.only(top: 15, left: 10),
+          //   width: double.maxFinite,
+          //   height: 200,
+          //   decoration: BoxDecoration(
+          //     color: Color.fromARGB(71, 238, 195, 66),
+          //     borderRadius: BorderRadius.circular(30),
+          //   ),
+          //   child: Column(
+          //     crossAxisAlignment: CrossAxisAlignment.start,
+          //     children: [
+          //       const Text(
+          //         'Скидка 2000тг в Еде',
+          //         style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+          //       ),
+          //       const Text(
+          //           'промокод EDA2000 на первый заказ из ресторана и доставка 0тг'),
+          //       Row(
+          //         mainAxisAlignment: MainAxisAlignment.end,
+          //         children: const [
+          //           Icon(
+          //             Icons.flutter_dash,
+          //             size: 30,
+          //           ),
+          //           Icon(
+          //             IconData(0xe25a, fontFamily: 'MaterialIcons'),
+          //             size: 100,
+          //             color: Colors.amber,
+          //           ),
+          //           SizedBox(width: 20)
+          //         ],
+          //       )
+          //     ],
+          //   ),
+          // )
         ],
       ),
     );

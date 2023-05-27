@@ -72,23 +72,24 @@ class InnerCafePage extends StatelessWidget {
                                 userController.user.value!.status == 'Егесі') {
                               print('%%%%%%%%%%%%%%%%%');
                               Get.defaultDialog(
-                                  title: 'Добавить еду',
+                                  title: 'Тағам қосу',
                                   content: Container(
                                     width: 500,
                                     height: 300,
                                     child: Column(
                                       children: [
-                                        MyTextField('Название',
+                                        MyTextField('Тағамның аты',
                                             controller: foodname),
-                                        MyTextField('Цена', controller: price),
-                                        MyTextField('url изоброжение',
+                                        MyTextField('Бағасы',
+                                            controller: price),
+                                        MyTextField('url суреті',
                                             controller: url),
                                         Expanded(child: SizedBox()),
                                         Row(
                                           children: [
                                             Expanded(child: SizedBox()),
                                             GestureDetector(
-                                              child: Button('Добавить'),
+                                              child: Button('Қосу'),
                                               onTap: () async =>
                                                   await RemoteService
                                                           .postFoodBook(
@@ -100,11 +101,17 @@ class InnerCafePage extends StatelessWidget {
                                                                   place: name,
                                                                   image:
                                                                       url.text))
-                                                      .then((value) => value
-                                                          ? Get.back()
-                                                          : Get.snackbar(
-                                                              'failed',
-                                                              'error')),
+                                                      .then((value) {
+                                                orderController.fetchData(
+                                                    place: name);
+                                                value
+                                                    ? Get.back()
+                                                    : Get.snackbar(
+                                                        'failed', 'error');
+                                                foodname.clear();
+                                                price.clear();
+                                                url.clear();
+                                              }),
                                             )
                                           ],
                                         )
@@ -114,6 +121,12 @@ class InnerCafePage extends StatelessWidget {
                               return;
                             }
                             if (selectedButton3.value) {
+                              if (userController.user.value == null) {
+                                Get.toNamed('/register');
+                                Get.snackbar('Регистрация',
+                                    'Тапсырыс жасау үшін авторизация міндетті');
+                                return;
+                              }
                               print("#############");
                               Get.defaultDialog(
                                   title: 'Тапсырыс',
@@ -166,7 +179,16 @@ class InnerCafePage extends StatelessWidget {
                                                 print(i.price);
                                               }
                                               await RemoteService.postOrder(
-                                                  orderlist);
+                                                      orderlist)
+                                                  .then((value) {
+                                                if (value) {
+                                                  Get.snackbar('Тапсырыс',
+                                                      'Сәтті жүзеге асты');
+                                                }
+                                                orderController.fetchData(
+                                                    place: name);
+                                                Get.back();
+                                              });
                                             },
                                           )
                                         ],
@@ -322,6 +344,7 @@ class InnerCafePage extends StatelessWidget {
                 text: 'Тапсырыс',
                 selected: selectedButton3.value,
                 onTap: () {
+                  orderController.fetchData(place: name);
                   selectedButton1.value = false;
                   selectedButton2.value = false;
                   selectedButton3.value = true;
@@ -400,33 +423,32 @@ class InnerCafePage extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        FutureBuilder(
-            future: RemoteService.getBookFood(BookFoodData(place: name)),
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              return SizedBox(
-                  height: 400,
-                  child: CustomScrollView(
-                    primary: false,
-                    slivers: <Widget>[
-                      SliverPadding(
-                        padding: const EdgeInsets.all(20),
-                        sliver: SliverGrid.count(
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 10,
-                            crossAxisCount: 2,
-                            children: List.generate(
-                                snapshot.data!.length,
-                                (index) =>
-                                    order_card(snapshot.data![index], index))),
-                      ),
-                    ],
-                  ));
-            })
+        Obx(() {
+          if (orderController.book_foods.value == null) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return SizedBox(
+              height: 400,
+              child: CustomScrollView(
+                primary: false,
+                slivers: <Widget>[
+                  SliverPadding(
+                    padding: const EdgeInsets.all(20),
+                    sliver: SliverGrid.count(
+                        crossAxisSpacing: 0,
+                        mainAxisSpacing: 10,
+                        crossAxisCount: 2,
+                        children: List.generate(
+                            orderController.book_foods.value!.length,
+                            (index) => order_card(
+                                orderController.book_foods.value![index],
+                                index))),
+                  ),
+                ],
+              ));
+        })
       ],
     );
   }

@@ -12,7 +12,7 @@ class HistoryOrdersPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('История'),
+        title: const Text('Тапсырыстар тарихы'),
       ),
       body: FutureBuilder(
           future: RemoteService.getBook(userController.user.value!.number!),
@@ -25,7 +25,7 @@ class HistoryOrdersPage extends StatelessWidget {
             if (snapshot.data!.isEmpty) {
               return Center(
                 child: Text(
-                  'У вас еще нет заказов',
+                  'Сізде әлі тапсырыс жоқ',
                   style: TextStyle(color: Colors.grey[600]!),
                 ),
               );

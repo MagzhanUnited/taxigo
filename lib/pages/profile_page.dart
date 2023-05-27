@@ -74,53 +74,55 @@ class ProfilePage extends StatelessWidget {
                   ),
                   Text(userController.user.value!.number!),
                   const SizedBox(height: 20),
-                  const Text(
-                    'Статистика заказов',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 10),
-                  SfCartesianChart(
-                      // title: ChartTitle(text: 'Half yearly sales analysis'),
-                      // Enable legend
-                      // legend: Legend(isVisible: true),
-                      // Enable tooltip
-                      // tooltipBehavior: TooltipBehavior(enable: true),
-                      primaryXAxis: CategoryAxis(),
-                      series: <LineSeries<SalesData, String>>[
-                        LineSeries<SalesData, String>(
-                            // Bind data source
-                            dataSource: <SalesData>[
-                              SalesData('Jan', 5),
-                              SalesData('Feb', 28),
-                              SalesData('Mar', 34),
-                              SalesData('Apr', 32),
-                              SalesData('May', 40)
-                            ],
-                            dataLabelSettings:
-                                DataLabelSettings(isVisible: true),
-                            xValueMapper: (SalesData sales, _) => sales.year,
-                            yValueMapper: (SalesData sales, _) => sales.sales)
-                      ])
+                  // const Text(
+                  //   'Статистика заказов',
+                  //   style: TextStyle(fontWeight: FontWeight.bold),
+                  // ),
+                  // const SizedBox(height: 10),
+                  // SfCartesianChart(
+                  //     // title: ChartTitle(text: 'Half yearly sales analysis'),
+                  //     // Enable legend
+                  //     // legend: Legend(isVisible: true),
+                  //     // Enable tooltip
+                  //     // tooltipBehavior: TooltipBehavior(enable: true),
+                  //     primaryXAxis: CategoryAxis(),
+                  //     series: <LineSeries<SalesData, String>>[
+                  //       LineSeries<SalesData, String>(
+                  //           // Bind data source
+                  //           dataSource: <SalesData>[
+                  //             SalesData('Jan', 5),
+                  //             SalesData('Feb', 28),
+                  //             SalesData('Mar', 34),
+                  //             SalesData('Apr', 32),
+                  //             SalesData('May', 40)
+                  //           ],
+                  //           dataLabelSettings:
+                  //               DataLabelSettings(isVisible: true),
+                  //           xValueMapper: (SalesData sales, _) => sales.year,
+                  //           yValueMapper: (SalesData sales, _) => sales.sales)
+                  //     ])
                 ],
               ),
             ),
-            Container(
-                margin: EdgeInsets.only(left: 25, top: 20),
-                child: GestureDetector(
-                  child: Row(
-                    children: const [
-                      Icon(Icons.exit_to_app),
-                      Text(
-                        'Выход',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      )
-                    ],
-                  ),
-                  onTap: () {
-                    userController.user.value = null;
-                    Get.toNamed('/');
-                  },
-                ))
+            Expanded(child: SizedBox()),
+            SafeArea(
+                child: Container(
+                    margin: EdgeInsets.only(left: 25, top: 20),
+                    child: GestureDetector(
+                      child: Row(
+                        children: const [
+                          Icon(Icons.exit_to_app),
+                          Text(
+                            'Выход',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                      onTap: () {
+                        userController.user.value = null;
+                        Get.toNamed('/');
+                      },
+                    )))
           ],
         ));
   }

@@ -50,6 +50,7 @@ class RemoteService extends GetConnect {
   static Future<InnerData?> getInner(int id) async {
     var response = await client.get('http://localhost:8000/taxigo/data/$id');
     if (response.statusCode == 200) {
+      print(innerDataFromJson(response.bodyString!));
       return innerDataFromJson(response.bodyString!);
     }
     return null;
