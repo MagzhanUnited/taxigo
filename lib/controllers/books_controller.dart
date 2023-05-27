@@ -6,11 +6,12 @@ import 'package:get/get.dart';
 
 class BooksController extends GetxController {
   Rxn<List<BookData>> bookController = Rxn<List<BookData>>();
+  Rxn<List<OrderList>> ordersController = Rxn<List<OrderList>>();
   Rxn<List<OrderList>> orderController = Rxn<List<OrderList>>();
   @override
   onReady() {
     fetchData();
-    fetchOrder();
+    fetchOrders();
     super.onReady();
   }
 
@@ -21,8 +22,17 @@ class BooksController extends GetxController {
     }
   }
 
-  Future<void> fetchOrder() async {
+  Future<void> fetchOrders() async {
     var response = await RemoteService.getOrders();
+    if (response != null) {
+      ordersController.value = response;
+    } else {
+      print("ERROR fetchOrders");
+    }
+  }
+
+  Future<void> fetchOrder(String number) async {
+    var response = await RemoteService.getOrder(number);
     if (response != null) {
       orderController.value = response;
     } else {

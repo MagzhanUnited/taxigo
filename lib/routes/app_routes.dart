@@ -7,8 +7,6 @@ import 'package:flutter_taxi_go/pages/profile_page.dart';
 import 'package:flutter_taxi_go/pages/request_page.dart';
 import 'package:flutter_taxi_go/pages/service_pages/cafe_page.dart';
 import 'package:flutter_taxi_go/pages/service_pages/inner/inner_cafe_page.dart';
-import 'package:flutter_taxi_go/pages/vacancies_page.dart';
-import 'package:get/get_connect/http/src/request/request.dart';
 import 'package:get/route_manager.dart';
 
 class AppRoutes {

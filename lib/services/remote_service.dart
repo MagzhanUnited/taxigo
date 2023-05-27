@@ -129,4 +129,15 @@ class RemoteService extends GetConnect {
     }
     return null;
   }
+
+  static Future<List<OrderList>?> getOrder(String number) async {
+    var response =
+        await client.get('http://localhost:8000/taxigo/order/$number');
+    if (response.statusCode == 200) {
+      print(
+          "ordersListFromJson(response.bodyString!) :${ordersListFromJson(response.bodyString!)}");
+      return ordersListFromJson(response.bodyString!);
+    }
+    return null;
+  }
 }

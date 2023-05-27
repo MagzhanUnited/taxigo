@@ -138,7 +138,7 @@ class InnerCafePage extends StatelessWidget {
                                               (index) => Row(
                                                     children: [
                                                       Text(orderController
-                                                          .order[index].name),
+                                                          .order[index].name!),
                                                       Expanded(
                                                           child: SizedBox()),
                                                       Container(
@@ -157,11 +157,12 @@ class InnerCafePage extends StatelessWidget {
                                           GestureDetector(
                                             child: Button('Тапсырыс'),
                                             onTap: () async {
+                                              Get.back();
                                               var orders = <Order>[];
                                               for (var i
                                                   in orderController.order) {
                                                 var order = Order(
-                                                    name: i.name,
+                                                    name: i.name!,
                                                     amount: i.amount.toString(),
                                                     price: i.price.toString());
                                                 orders.add(order);
@@ -173,7 +174,7 @@ class InnerCafePage extends StatelessWidget {
                                                   orders: orders);
                                               print(orderlist.number);
                                               print(orderlist.place);
-                                              for (var i in orderlist.orders) {
+                                              for (var i in orderlist.orders!) {
                                                 print(i.amount);
                                                 print(i.name);
                                                 print(i.price);
@@ -187,7 +188,7 @@ class InnerCafePage extends StatelessWidget {
                                                 }
                                                 orderController.fetchData(
                                                     place: name);
-                                                Get.back();
+                                                orderController.order.clear();
                                               });
                                             },
                                           )
@@ -345,6 +346,7 @@ class InnerCafePage extends StatelessWidget {
                 selected: selectedButton3.value,
                 onTap: () {
                   orderController.fetchData(place: name);
+                  orderController.order.clear();
                   selectedButton1.value = false;
                   selectedButton2.value = false;
                   selectedButton3.value = true;
@@ -528,15 +530,22 @@ class InnerCafePage extends StatelessWidget {
                 ),
                 onTap: () {
                   if (counter.value <= 1) {
-                    orderController.order.removeAt(index);
+                    orderController.order.remove(Orders(
+                        name: snaphot.name!,
+                        amount: counter.value,
+                        place: name,
+                        price: int.parse(snaphot.price!) * counter.value));
                     counter.value = 0;
                     return;
                   }
-
+                  int ind = orderController.order
+                      .indexWhere((element) => element.name == snaphot.name);
                   counter--;
-                  orderController.order[index].amount--;
-                  orderController.order[index].price -=
-                      int.parse(snaphot.price!);
+                  orderController.order[ind].amount =
+                      orderController.order[ind].amount! - 1;
+                  orderController.order[ind].price =
+                      orderController.order[ind].price! -
+                          int.parse(snaphot.price!);
                 },
               ),
               const SizedBox(
@@ -561,19 +570,20 @@ class InnerCafePage extends StatelessWidget {
                 onTap: () {
                   if (counter.value == 0) {
                     counter++;
-                    orderController.order.insert(
-                        index,
-                        Orders(
-                            name: snaphot.name!,
-                            amount: counter.value,
-                            place: name,
-                            price: int.parse(snaphot.price!) * counter.value));
+                    orderController.order.add(Orders(
+                        name: snaphot.name!,
+                        amount: counter.value,
+                        place: name,
+                        price: int.parse(snaphot.price!) * counter.value));
 
                     return;
                   }
+                  int ind = orderController.order
+                      .indexWhere((element) => element.name == snaphot.name);
                   counter++;
-                  orderController.order[index].amount++;
-                  orderController.order[index].price =
+                  orderController.order[ind].amount =
+                      orderController.order[ind].amount! + 1;
+                  orderController.order[ind].price =
                       int.parse(snaphot.price!) * counter.value;
                 },
               ),

@@ -3,15 +3,11 @@ import 'package:flutter_taxi_go/services/remote_service.dart';
 import 'package:get/get.dart';
 
 class Orders {
-  String name;
-  int amount;
-  int price;
-  String place;
-  Orders(
-      {required this.name,
-      required this.amount,
-      required this.place,
-      required this.price});
+  String? name;
+  int? amount;
+  int? price;
+  String? place;
+  Orders({this.name, this.amount, this.place, this.price});
 }
 
 class OrderController extends GetxController {

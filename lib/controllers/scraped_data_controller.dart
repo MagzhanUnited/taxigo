@@ -5,8 +5,6 @@ import 'package:get/get.dart';
 class ScrapedDataController extends GetxController {
   RxList<ScrapedData> data = <ScrapedData>[].obs;
 
-
-
   Future<void> fetchData() async {
     var response = await RemoteService.scrapeData();
     print('fetch data');

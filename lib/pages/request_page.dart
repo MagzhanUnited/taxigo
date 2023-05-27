@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 
 class RequestPage extends StatelessWidget {
   final UserController userController = Get.find();
-  final BooksController snapshot = Get.put(BooksController());
+  final BooksController snapshot = Get.find();
   RequestPage({super.key});
 
   @override
@@ -20,13 +20,13 @@ class RequestPage extends StatelessWidget {
       ),
       body: Obx(() {
         if (snapshot.bookController.value == null ||
-            snapshot.orderController.value == null) {
+            snapshot.ordersController.value == null) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         }
         if (snapshot.bookController.value!.isEmpty &&
-            snapshot.orderController.value!.isEmpty) {
+            snapshot.ordersController.value!.isEmpty) {
           return Center(
             child: Text(
               'У вас еще нет заказов',
@@ -54,14 +54,14 @@ class RequestPage extends StatelessWidget {
                 ),
                 Column(
                     children: List.generate(
-                  snapshot.orderController.value!.length,
+                  snapshot.ordersController.value!.length,
                   (index) => vacancieContainer(
-                      snapshot.orderController.value![index].place,
-                      snapshot.orderController.value![index].number,
+                      snapshot.ordersController.value![index].place,
+                      snapshot.ordersController.value![index].number,
                       "Тағам жалдау",
                       "Жаплы бағасы: " +
-                          count_money(snapshot.orderController.value![index]),
-                      ordersList(snapshot.orderController.value![index]),
+                          count_money(snapshot.ordersController.value![index]),
+                      ordersList(snapshot.ordersController.value![index]),
                       null,
                       null),
                 ))

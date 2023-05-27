@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_taxi_go/controllers/books_controller.dart';
 import 'package:flutter_taxi_go/controllers/user_controller.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -8,6 +9,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class MainPage extends StatelessWidget {
   final RxInt height = 0.obs;
   final UserController userController = Get.find();
+  final BooksController snapshot = Get.put(BooksController());
   //final ScrollController _scrollController = ScrollController();
   // double _previousScrollOffset = 0.0;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
